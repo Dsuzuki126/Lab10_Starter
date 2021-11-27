@@ -11,6 +11,7 @@
   <!-- Main Stylesheet & Scripts -->
   <link rel="stylesheet" href="assets/styles/global.css" />
   <script src="assets/scripts/speechSynth.js" type="module"></script>
+  <script src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
 </head>
 
 <body>
@@ -29,9 +30,51 @@
       <select name="voice" id="voice-select">
         <option value="select" disabled selected>Select Voice:</option>
       </select>
-      <button>Press to Talk</button>
+      <button id="Press-to-talk">Press to Talk</button>
     </section>
   </main>
+  <script>
+    let random_string = '';
+    let random_ascii;
+    let length = Math.floor(Math.random() * 41);
+    for(let i = 0; i < length; i++) {
+        random_ascii = Math.floor((Math.random() * 25) + 97);
+        random_string += String.fromCharCode(random_ascii)
+    }
+    var user = {
+      key: random_string,
+
+    };
+
+  
+    var ldclient = LDClient.initialize('61a26bd4f7f6530fa18536e7', user);
+  
+    // function render() {
+    //   var shouldShow = ldclient.variation('box-borders', false);
+    //   if (shouldShow == true) {
+    //     document.getElementById("Press-to-talk").setAttribute("class","border");
+    //     document.getElementById("text-to-speak").setAttribute("class","border");
+    //     document.getElementById("voice-select").setAttribute("class","border");
+
+    //   }
+
+    // }
+  
+    function render() {
+      var shouldShow = ldclient.variation('bigger-text', false);
+      if (shouldShow == true) {
+        document.getElementById("Press-to-talk").setAttribute("class","biggerText");
+
+        document.getElementById("voice-select").setAttribute("class","biggerText");
+
+      }
+
+    }
+
+    ldclient.on('ready', render);
+    ldclient.on('change', render);
+  </script>
 </body>
+
 
 </html>

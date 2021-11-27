@@ -114,3 +114,11 @@ main>section {
   grid-template-areas: 'slider icon';
   grid-template-columns: 80% 15%;
 }
+.border {
+  border-width: 5px;
+  border-color: black;
+}
+
+.biggerText {
+  font-size: large;
+}
